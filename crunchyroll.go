@@ -30,6 +30,7 @@ const (
 	ME         = "ar-ME"
 	CN         = "zh-CN"
 	IN         = "hi-IN"
+	IN2        = "en-IN"
 )
 
 // MediaType represents a media type.
