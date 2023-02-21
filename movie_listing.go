@@ -36,7 +36,7 @@ type MovieListing struct {
 
 // MovieListingFromID returns a movie listing by its api id.
 func MovieListingFromID(crunchy *Crunchyroll, id string) (*MovieListing, error) {
-	resp, err := crunchy.request(fmt.Sprintf("https://beta-api.crunchyroll.com/cms/v2/%s/movie_listing/%s&locale=%s&Signature=%s&Policy=%s&Key-Pair-Id=%s",
+	resp, err := crunchy.request(fmt.Sprintf("https://www.crunchyroll.com/cms/v2/%s/movie_listing/%s&locale=%s&Signature=%s&Policy=%s&Key-Pair-Id=%s",
 		crunchy.Config.Bucket,
 		id,
 		crunchy.Locale,
@@ -63,7 +63,7 @@ func MovieListingFromID(crunchy *Crunchyroll, id string) (*MovieListing, error) 
 
 // AudioLocale is same as Episode.AudioLocale.
 func (ml *MovieListing) AudioLocale() (LOCALE, error) {
-	resp, err := ml.crunchy.request(fmt.Sprintf("https://beta-api.crunchyroll.com/cms/v2/%s/videos/%s/streams?locale=%s&Signature=%s&Policy=%s&Key-Pair-Id=%s",
+	resp, err := ml.crunchy.request(fmt.Sprintf("https://www.crunchyroll.com/cms/v2/%s/videos/%s/streams?locale=%s&Signature=%s&Policy=%s&Key-Pair-Id=%s",
 		ml.crunchy.Config.Bucket,
 		ml.ID,
 		ml.crunchy.Locale,
@@ -82,7 +82,7 @@ func (ml *MovieListing) AudioLocale() (LOCALE, error) {
 
 // Streams returns all streams which are available for the movie listing.
 func (ml *MovieListing) Streams() ([]*Stream, error) {
-	return fromVideoStreams(ml.crunchy, fmt.Sprintf("https://beta-api.crunchyroll.com/cms/v2/%s/videos/%s/streams?locale=%s&Signature=%s&Policy=%s&Key-Pair-Id=%s",
+	return fromVideoStreams(ml.crunchy, fmt.Sprintf("https://www.crunchyroll.com/cms/v2/%s/videos/%s/streams?locale=%s&Signature=%s&Policy=%s&Key-Pair-Id=%s",
 		ml.crunchy.Config.Bucket,
 		ml.ID,
 		ml.crunchy.Locale,

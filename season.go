@@ -45,7 +45,7 @@ type Season struct {
 
 // SeasonFromID returns a season by its api id.
 func SeasonFromID(crunchy *Crunchyroll, id string) (*Season, error) {
-	resp, err := crunchy.Client.Get(fmt.Sprintf("https://beta-api.crunchyroll.com/cms/v2/%s/seasons?series_id=%s&locale=%s&Signature=%s&Policy=%s&Key-Pair-Id=%s",
+	resp, err := crunchy.Client.Get(fmt.Sprintf("https://www.crunchyroll.com/cms/v2/%s/seasons?series_id=%s&locale=%s&Signature=%s&Policy=%s&Key-Pair-Id=%s",
 		crunchy.Config.Bucket,
 		id,
 		crunchy.Locale,
@@ -96,7 +96,7 @@ func (s *Season) Episodes() (episodes []*Episode, err error) {
 		return s.children, nil
 	}
 
-	resp, err := s.crunchy.request(fmt.Sprintf("https://beta-api.crunchyroll.com/cms/v2/%s/episodes?season_id=%s&locale=%s&Signature=%s&Policy=%s&Key-Pair-Id=%s",
+	resp, err := s.crunchy.request(fmt.Sprintf("https://www.crunchyroll.com/cms/v2/%s/episodes?season_id=%s&locale=%s&Signature=%s&Policy=%s&Key-Pair-Id=%s",
 		s.crunchy.Config.Bucket,
 		s.ID,
 		s.crunchy.Locale,

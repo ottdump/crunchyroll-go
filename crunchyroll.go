@@ -53,7 +53,7 @@ type loginResponse struct {
 
 // LoginWithCredentials logs in via crunchyroll username or email and password.
 func LoginWithCredentials(user string, password string, locale LOCALE, client *http.Client) (*Crunchyroll, error) {
-	endpoint := "https://beta-api.crunchyroll.com/auth/v1/token"
+	endpoint := "https://www.crunchyroll.com/auth/v1/token"
 	values := url.Values{}
 	values.Set("username", user)
 	values.Set("password", password)
@@ -80,7 +80,7 @@ func LoginWithCredentials(user string, password string, locale LOCALE, client *h
 }
 
 // LoginWithSessionID logs in via a crunchyroll session id.
-// Session ids are automatically generated as a cookie when visiting https://beta-api.crunchyroll.com.
+// Session ids are automatically generated as a cookie when visiting https://www.crunchyroll.com.
 //
 // Deprecated: Login via session id caused some trouble in the past (e.g. #15 or #30) which resulted in
 // login not working. Use LoginWithRefreshToken instead.
@@ -120,10 +120,10 @@ func LoginWithSessionID(sessionID string, locale LOCALE, client *http.Client) (*
 
 // LoginWithRefreshToken logs in via the crunchyroll refresh token.
 // It can be obtained by copying the etp_rt cookie from beta.crunchyroll.com.
-// The etp_rt cookie is automatically set when visiting https://beta-api.crunchyroll.com. Note that you
+// The etp_rt cookie is automatically set when visiting https://www.crunchyroll.com. Note that you
 // need a crunchyroll account to access it.
 func LoginWithRefreshToken(refreshToken string, locale LOCALE, client *http.Client) (*Crunchyroll, error) {
-	endpoint := "https://beta-api.crunchyroll.com/auth/v1/token"
+	endpoint := "https://www.crunchyroll.com/auth/v1/token"
 	grantType := url.Values{}
 	grantType.Set("refresh_token", refreshToken)
 	grantType.Set("grant_type", "refresh_token")
@@ -138,7 +138,7 @@ func LoginWithRefreshToken(refreshToken string, locale LOCALE, client *http.Clie
 	resp, err := request(req, client)
 	if err != nil {
 		if reqErr := err.(*RequestError); reqErr != nil && reqErr.Response.StatusCode == http.StatusBadRequest {
-			endpoint = "https://beta-api.crunchyroll.com/auth/v1/token"
+			endpoint = "https://www.crunchyroll.com/auth/v1/token"
 			grantType = url.Values{}
 			grantType.Set("grant_type", "etp_rt_cookie")
 			grantType.Set("scope", "offline_access")
@@ -183,7 +183,7 @@ func postLogin(loginResp loginResponse, locale LOCALE, client *http.Client) (*Cr
 
 	var jsonBody map[string]any
 
-	endpoint := "https://beta-api.crunchyroll.com/index/v2"
+	endpoint := "https://www.crunchyroll.com/index/v2"
 	resp, err := crunchy.request(endpoint, http.MethodGet)
 	if err != nil {
 		return nil, err
@@ -200,7 +200,7 @@ func postLogin(loginResp loginResponse, locale LOCALE, client *http.Client) (*Cr
 	crunchy.Config.Signature = cms["signature"].(string)
 	crunchy.Config.KeyPairID = cms["key_pair_id"].(string)
 
-	endpoint = "https://beta-api.crunchyroll.com/accounts/v1/me"
+	endpoint = "https://www.crunchyroll.com/accounts/v1/me"
 	resp, err = crunchy.request(endpoint, http.MethodGet)
 	if err != nil {
 		return nil, err
@@ -209,7 +209,7 @@ func postLogin(loginResp loginResponse, locale LOCALE, client *http.Client) (*Cr
 	json.NewDecoder(resp.Body).Decode(&jsonBody)
 	crunchy.Config.ExternalID = jsonBody["external_id"].(string)
 
-	endpoint = "https://beta-api.crunchyroll.com/accounts/v1/me/profile"
+	endpoint = "https://www.crunchyroll.com/accounts/v1/me/profile"
 	resp, err = crunchy.request(endpoint, http.MethodGet)
 	if err != nil {
 		return nil, err

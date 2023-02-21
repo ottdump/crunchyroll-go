@@ -8,7 +8,7 @@ import (
 
 // Recommendations returns series and movie recommendations from crunchyroll based on the currently logged in account within the given limit.
 func (c *Crunchyroll) Recommendations(limit uint) (s []*Series, m []*Movie, err error) {
-	recommendationsEndpoint := fmt.Sprintf("https://beta-api.crunchyroll.com/content/v1/%s/recommendations?n=%d&locale=%s",
+	recommendationsEndpoint := fmt.Sprintf("https://www.crunchyroll.com/content/v1/%s/recommendations?n=%d&locale=%s",
 		c.Config.AccountID, limit, c.Locale)
 	resp, err := c.request(recommendationsEndpoint, http.MethodGet)
 	if err != nil {
@@ -52,7 +52,7 @@ func (c *Crunchyroll) Recommendations(limit uint) (s []*Series, m []*Movie, err 
 
 // UpNext returns the episodes that are up next based on the currently logged in account within the given limit.
 func (c *Crunchyroll) UpNext(limit uint) (e []*Episode, err error) {
-	upNextAccountEndpoint := fmt.Sprintf("https://beta-api.crunchyroll.com/content/v1/%s/up_next_account?n=%d&locale=%s",
+	upNextAccountEndpoint := fmt.Sprintf("https://www.crunchyroll.com/content/v1/%s/up_next_account?n=%d&locale=%s",
 		c.Config.AccountID, limit, c.Locale)
 	resp, err := c.request(upNextAccountEndpoint, http.MethodGet)
 	if err != nil {

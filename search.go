@@ -46,7 +46,7 @@ func (c *Crunchyroll) Browse(options BrowseOptions, limit uint) (s []*Series, m 
 		return nil, nil, err
 	}
 
-	browseEndpoint := fmt.Sprintf("https://beta-api.crunchyroll.com/content/v1/browse?%s&n=%d&locale=%s",
+	browseEndpoint := fmt.Sprintf("https://www.crunchyroll.com/content/v1/browse?%s&n=%d&locale=%s",
 		query, limit, c.Locale)
 	resp, err := c.request(browseEndpoint, http.MethodGet)
 	if err != nil {
@@ -143,7 +143,7 @@ func (c *Crunchyroll) FindEpisodeByName(seriesName, episodeTitle string) ([]*Epi
 
 // Search searches a query and returns all found series and movies within the given limit.
 func (c *Crunchyroll) Search(query string, limit uint) (s []*Series, m []*Movie, err error) {
-	searchEndpoint := fmt.Sprintf("https://beta-api.crunchyroll.com/content/v1/search?q=%s&n=%d&type=&locale=%s",
+	searchEndpoint := fmt.Sprintf("https://www.crunchyroll.com/content/v1/search?q=%s&n=%d&type=&locale=%s",
 		query, limit, c.Locale)
 	resp, err := c.request(searchEndpoint, http.MethodGet)
 	if err != nil {

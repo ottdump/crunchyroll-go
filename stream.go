@@ -25,7 +25,7 @@ type Stream struct {
 
 // StreamsFromID returns a stream by its api id.
 func StreamsFromID(crunchy *Crunchyroll, id string) ([]*Stream, error) {
-	return fromVideoStreams(crunchy, fmt.Sprintf("https://beta-api.crunchyroll.com/cms/v2/%s/videos/%s/streams?locale=%s&Signature=%s&Policy=%s&Key-Pair-Id=%s",
+	return fromVideoStreams(crunchy, fmt.Sprintf("https://www.crunchyroll.com/cms/v2/%s/videos/%s/streams?locale=%s&Signature=%s&Policy=%s&Key-Pair-Id=%s",
 		crunchy.Config.Bucket,
 		id,
 		crunchy.Locale,

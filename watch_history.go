@@ -8,7 +8,7 @@ import (
 
 // WatchHistory returns the history of watched episodes based on the currently logged in account from the given page with the given size.
 func (c *Crunchyroll) WatchHistory(page uint, size uint) (e []*HistoryEpisode, err error) {
-	watchHistoryEndpoint := fmt.Sprintf("https://beta-api.crunchyroll.com/content/v1/watch-history/%s?page=%d&page_size=%d&locale=%s",
+	watchHistoryEndpoint := fmt.Sprintf("https://www.crunchyroll.com/content/v1/watch-history/%s?page=%d&page_size=%d&locale=%s",
 		c.Config.AccountID, page, size, c.Locale)
 	resp, err := c.request(watchHistoryEndpoint, http.MethodGet)
 	if err != nil {
